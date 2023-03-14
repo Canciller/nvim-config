@@ -68,10 +68,6 @@ return {
 			   nnoremap <silent> ]q :cnext<cr>
 			   nnoremap <silent> [q :cprev<cr>
 
-			   autocmd FileType qf nnoremap <buffer> t <C-W><cr><C-W>T
-			   autocmd FileType qf nnoremap <buffer> x <C-W><cr>
-			   autocmd FileType qf nnoremap <buffer> v <C-W><cr><C-W>L
-
 			   nnoremap <silent> <leader>xl :call ToggleLocationList()<cr>
 			 ]])
 
@@ -81,5 +77,17 @@ return {
 				command = "cwindow",
 			})
 		end,
+	},
+	{
+		"kevinhwang91/nvim-bqf",
+		opts = {
+			func_map = {
+				stoggleup = "",
+				stoggledown = "",
+				stogglevm = "",
+				split = "s",
+				vsplit = "v",
+			},
+		},
 	},
 }
