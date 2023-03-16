@@ -50,6 +50,13 @@ autocmd({ "BufNew", "BufNewFile", "BufRead" }, {
 	command = "set filetype=typescriptreact",
 })
 
+augroup("TsconfigJsonc", { clear = true })
+autocmd({ "BufNew", "BufNewFile", "BufRead" }, {
+	group = "ReactHooksTypescript",
+	pattern = { "tsconfig.json", "tsconfig.*.json" },
+	command = "set filetype=jsonc",
+})
+
 -- Quickfix
 augroup("Quickfix", { clear = true })
 autocmd("FileType", {
