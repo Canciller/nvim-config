@@ -2,7 +2,7 @@ local o = vim.opt
 local cmd = vim.cmd
 
 o.termguicolors = true
-o.background = 'dark'
+o.background = "dark"
 
 o.showmode = false
 
@@ -31,7 +31,7 @@ o.sidescrolloff = 15
 o.sidescroll = 1
 
 o.title = true
-o.titlestring = '%t %m'
+o.titlestring = "%t %m"
 
 o.timeoutlen = 500
 
@@ -39,20 +39,20 @@ o.autowrite = true -- write open buffers on :make
 
 o.foldlevel = 0 -- allow folding the whole way down
 o.foldlevelstart = 99 -- open files with all folds open
-o.foldmethod = 'expr'
-o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldenable = false
 
 o.ignorecase = true -- case insensitive search...
 o.smartcase = true -- unless I use caps
 
-o.mouse = 'nv' -- use mouse in normal, visual modes
+o.mouse = "nv" -- use mouse in normal, visual modes
 
 o.undofile = false -- keep track of my 'undo's between sessions
 
 o.swapfile = false -- no swap files
 
 o.list = true
-o.listchars:append 'eol:↴'
+-- o.listchars:append 'eol:↴'
 
-cmd 'filetype on'
+cmd("filetype on")

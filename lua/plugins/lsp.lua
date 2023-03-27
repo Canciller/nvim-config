@@ -1,5 +1,40 @@
 return {
 	{
+		"lvimuser/lsp-inlayhints.nvim",
+		lazy = false,
+		opts = {
+			inlay_hints = {
+				parameter_hints = {
+					show = true,
+					prefix = "<- ",
+					separator = ", ",
+					remove_colon_start = false,
+					remove_colon_end = true,
+				},
+				type_hints = {
+					-- type and other hints
+					show = true,
+					prefix = "=> ",
+					separator = ", ",
+					remove_colon_start = true,
+					remove_colon_end = false,
+				},
+				only_current_line = false,
+				-- separator between types and parameter hints. Note that type hints are
+				-- shown before parameter
+				labels_separator = " ",
+				-- whether to align to the length of the longest line in the file
+				max_len_align = false,
+				-- padding from the left if max_len_align is true
+				max_len_align_padding = 1,
+				-- highlight group
+				highlight = "LspInlayHint",
+				-- virt_text priority
+				priority = 0,
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"ray-x/lsp_signature.nvim",
@@ -51,6 +86,8 @@ return {
 			capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 			local function setup(server)
+				local base_server_opts = servers[server] or {}
+
 				local server_opts = vim.tbl_deep_extend("force", {
 					capabilities = vim.deepcopy(capabilities),
 					on_attach = function(client, bufnr)
@@ -95,7 +132,7 @@ return {
 							})
 						end
 
-						-- LSP Signature
+						-- LSP signature
 						require("lsp_signature").on_attach({
 							bind = true, -- This is mandatory, otherwise border config won't get registered.
 							handler_opts = {
@@ -105,8 +142,16 @@ return {
 							hint_enable = false,
 							hi_parameter = "IncSearch",
 						}, bufnr)
+
+						if base_server_opts.inlay_hints then
+							require("lsp-inlayhints").on_attach(client, bufnr)
+						end
+
+						if base_server_opts.on_attach then
+							base_server_opts.on_attach(client, bufnr)
+						end
 					end,
-				}, servers[server] or {})
+				}, base_server_opts)
 
 				opts.setup[server](server, server_opts)
 			end
