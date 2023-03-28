@@ -142,10 +142,12 @@ return {
 			lsp_references = {
 				theme = "dropdown",
 				show_line = false,
+				initial_mode = "normal",
 			},
 			lsp_definitions = {
 				theme = "dropdown",
 				show_line = false,
+				initial_mode = "normal",
 			},
 		},
 		defaults = {
