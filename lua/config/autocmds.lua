@@ -16,7 +16,7 @@ autocmd("BufWritePre", {
 	command = ":%s/\\s\\+$//e",
 })
 
--- Don't auto commenting new lines
+-- Don't auto comment new lines
 autocmd("BufEnter", {
 	pattern = "",
 	command = "set fo-=c fo-=r fo-=o",
@@ -44,18 +44,18 @@ autocmd("FileType", {
 })
 
 augroup("ReactHooksTypescript", { clear = true })
-autocmd({ "BufNew", "BufNewFile", "BufRead" }, {
+autocmd({ "BufNewFile", "BufRead" }, {
 	group = "ReactHooksTypescript",
 	pattern = "use*.ts",
-	command = "set filetype=typescriptreact",
+	command = "setlocal filetype=typescriptreact",
 })
 
---[[ augroup("TsconfigJsonc", { clear = true })
-autocmd({ "BufNew", "BufNewFile", "BufRead" }, {
+augroup("TsconfigJsonc", { clear = true })
+autocmd({ "BufNewFile", "BufRead" }, {
 	group = "TsconfigJsonc",
 	pattern = { "tsconfig.json", "tsconfig.*.json" },
-	command = "set filetype=jsonc",
-}) ]]
+	command = "setlocal filetype=jsonc",
+})
 
 -- Quickfix
 augroup("Quickfix", { clear = true })
