@@ -1,6 +1,9 @@
 return {
 	{
 		"stevearc/dressing.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
 		lazy = true,
 		init = function()
 			vim.ui.select = function(...)
@@ -12,6 +15,23 @@ return {
 				require("lazy").load({ plugins = { "dressing.nvim" } })
 				return vim.ui.input(...)
 			end
+		end,
+		opts = function()
+			return {
+				input = {
+					start_in_insert = true,
+					mappings = {
+						n = {
+							["q"] = "Close",
+						},
+					},
+				},
+				select = {
+					telescope = require("telescope.themes").get_cursor({
+						initial_mode = "normal",
+					}),
+				},
+			}
 		end,
 	},
 	{
