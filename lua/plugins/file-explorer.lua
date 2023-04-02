@@ -9,6 +9,7 @@ return {
 		},
 		opts = {
 			close_if_last_window = true,
+			auto_clean_after_session_restore = true,
 			event_handlers = {
 				{
 					event = "neo_tree_buffer_enter",
@@ -40,6 +41,10 @@ return {
 					["v"] = "open_vsplit",
 					["t"] = "open_tabnew",
 				},
+			},
+			source_selector = {
+				winbar = true,
+				content_layout = "center",
 			},
 			default_component_configs = {
 				name = {
