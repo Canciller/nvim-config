@@ -149,6 +149,9 @@ return {
 				show_line = false,
 				initial_mode = "normal",
 			},
+			oldfiles = {
+				initial_mode = "normal",
+			},
 		},
 		defaults = {
 			path_display = { "truncate" },
