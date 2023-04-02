@@ -31,6 +31,7 @@ require("lazy").setup({
 		{ import = "plugins/lsp" },
 		{ import = "plugins/diagnostics" },
 		{ import = "plugins/completion" },
+		{ import = "plugins/terminal" },
 		{ import = "plugins/extras/langs/typescript" },
 		{ import = "plugins/extras/langs/rust" },
 		{ import = "plugins/extras/langs/lua" },
