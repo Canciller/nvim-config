@@ -113,24 +113,24 @@ return {
 						vim.keymap.set("n", "]d", vim.diagnostic.goto_next, o)
 
 						-- Format on save
-						if client.supports_method("textDocument/formatting") then
-							local augroup = vim.api.nvim_create_augroup("LspFormatting", {
-								clear = false,
-							})
-							vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-							vim.api.nvim_create_autocmd("BufWritePre", {
-								group = augroup,
-								buffer = bufnr,
-								callback = function()
-									vim.lsp.buf.format({
-										filter = function(c)
-											return c.name == "null-ls"
-										end,
-										bufnr = bufnr,
-									})
-								end,
-							})
-						end
+						-- if client.supports_method("textDocument/formatting") then
+						local augroup = vim.api.nvim_create_augroup("LspFormatting", {
+							clear = false,
+						})
+						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							group = augroup,
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.format({
+									filter = function(c)
+										return c.name == "null-ls"
+									end,
+									bufnr = bufnr,
+								})
+							end,
+						})
+						-- end
 
 						-- LSP signature
 						require("lsp_signature").on_attach({
