@@ -75,3 +75,42 @@ map("n", "<leader>go", ":tabedit $CONFIG/nvim/lua/options.lua<cr>")
 -- record macro
 map("n", "q", "<nop>")
 map("n", "<leader>q", "q")
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+		local o = {
+			noremap = true,
+			silent = true,
+			buffer = ev.buf,
+		}
+
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, o)
+		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, o)
+		vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", o)
+		vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", o)
+
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, o)
+
+		vim.keymap.set("n", "<f2>", vim.lsp.buf.rename, o)
+
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, o)
+		vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, o)
+
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, o)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, o)
+
+		vim.keymap.set("n", "[e", function()
+			vim.diagnostic.goto_prev({
+				severity = vim.diagnostic.severity.ERROR,
+			})
+		end, o)
+		vim.keymap.set("n", "]e", function()
+			vim.diagnostic.goto_next({
+				severity = vim.diagnostic.severity.ERROR,
+			})
+		end, o)
+	end,
+})

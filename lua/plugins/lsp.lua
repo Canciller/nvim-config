@@ -1,3 +1,5 @@
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 return {
 	{
 		"lvimuser/lsp-inlayhints.nvim",
@@ -38,6 +40,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"ray-x/lsp_signature.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
@@ -55,6 +58,7 @@ return {
 		},
 		config = function(_, opts)
 			-- diagnostics
+
 			local signs = {
 				Error = "E",
 				Warn = "W",
@@ -79,69 +83,34 @@ return {
 
 			-- servers
 
-			local servers = opts.servers
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			-- local capabilities =
+			-- 	require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-			capabilities.textDocument.completion.completionItem.snippetSupport = false
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local function setup(server)
-				local base_server_opts = servers[server] or {}
+			-- this fucking line made jsx props to not be listed in cmp!!
+			-- capabilities.textDocument.completion.completionItem.snippetSupport = false
 
-				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = vim.deepcopy(capabilities),
+			for name, server_opts_or_empty in pairs(opts.servers) do
+				local server_opts = server_opts_or_empty or {}
+
+				local final_server_opts = vim.tbl_deep_extend("force", {
+					capabilities = capabilities,
 					on_attach = function(client, bufnr)
-						local o = {
-							noremap = true,
-							silent = true,
-							buffer = bufnr,
-						}
-
-						vim.keymap.set("n", "gD", vim.lsp.buf.declaration, o)
-						vim.keymap.set("n", "gi", vim.lsp.buf.implementation, o)
-						vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", o)
-						vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", o)
-
-						vim.keymap.set("n", "K", vim.lsp.buf.hover, o)
-
-						vim.keymap.set("n", "<f2>", vim.lsp.buf.rename, o)
-
-						vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, o)
-						vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, o)
-
-						vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, o)
-						vim.keymap.set("n", "]d", vim.diagnostic.goto_next, o)
-
-						vim.keymap.set("n", "[e", function()
-							vim.diagnostic.goto_prev({
-								severity = vim.diagnostic.severity.ERROR,
-							})
-						end, o)
-						vim.keymap.set("n", "]e", function()
-							vim.diagnostic.goto_next({
-								severity = vim.diagnostic.severity.ERROR,
-							})
-						end, o)
-
 						-- Format on save
-						-- if client.supports_method("textDocument/formatting") then
-						local augroup = vim.api.nvim_create_augroup("LspFormatting", {
-							clear = false,
-						})
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
-							buffer = bufnr,
+							group = vim.api.nvim_create_augroup("LspFormatting", {}),
 							callback = function()
+                local buf = vim.api.nvim_get_current_buf()
+
 								vim.lsp.buf.format({
 									filter = function(c)
 										return c.name == "null-ls"
 									end,
-									bufnr = bufnr,
+									bufnr = buf,
 								})
 							end,
 						})
-						-- end
 
 						-- LSP signature
 						require("lsp_signature").on_attach({
@@ -154,21 +123,17 @@ return {
 							hi_parameter = "IncSearch",
 						}, bufnr)
 
-						if base_server_opts.inlay_hints then
+						--[[ if base_server_opts.inlay_hints then
 							require("lsp-inlayhints").on_attach(client, bufnr)
-						end
+						end ]]
 
-						if base_server_opts.on_attach then
-							base_server_opts.on_attach(client, bufnr)
+						if server_opts.on_attach then
+							server_opts.on_attach(client, bufnr)
 						end
 					end,
-				}, base_server_opts)
+				}, server_opts)
 
-				opts.setup[server](server, server_opts)
-			end
-
-			for server in pairs(servers) do
-				setup(server)
+				opts.setup[name](name, final_server_opts)
 			end
 		end,
 	},

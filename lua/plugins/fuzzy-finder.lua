@@ -97,8 +97,8 @@ return {
 		{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
 		{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 		{ "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-		{ "<leader>sw", telescope("grep_string"), desc = "Word (root dir)" },
-		{ "<leader>sW", telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
+		--[[ { "<leader>sw", telescope("grep_string"), desc = "Word (root dir)" },
+		{ "<leader>sW", telescope("grep_string", { cwd = false }), desc = "Word (cwd)" }, ]]
 		{ "<leader>uC", telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
 		{
 			"<leader>ss",

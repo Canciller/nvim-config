@@ -15,7 +15,7 @@ return {
 		opts = {
 			servers = {
 				tsserver = {
-					inlay_hints = true,
+					-- inlay_hints = tru
 					settings = {
 						completions = {
 							completeFunctionCalls = true,
