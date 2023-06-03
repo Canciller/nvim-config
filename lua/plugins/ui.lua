@@ -53,18 +53,18 @@ return {
 			},
 		},
 	},
-	{
-		"nvim-zh/colorful-winsep.nvim",
-		opts = {
-			highlight = {
-				bg = "#16161E",
-				fg = "#1F3442",
-			},
-			-- timer refresh rate
-			interval = 30,
-		},
-		event = { "WinNew" },
-	},
+	-- {
+	-- 	"nvim-zh/colorful-winsep.nvim",
+	-- 	opts = {
+	-- 		highlight = {
+	-- 			bg = "#16161E",
+	-- 			fg = "#1F3442",
+	-- 		},
+	-- 		-- timer refresh rate
+	-- 		interval = 30,
+	-- 	},
+	-- 	event = { "WinNew" },
+	-- },
 	{
 		"anuvyklack/windows.nvim",
 		dependencies = {

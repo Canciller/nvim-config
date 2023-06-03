@@ -20,7 +20,7 @@ return {
 						completions = {
 							completeFunctionCalls = true,
 						},
-						typescript = {
+						--[[ typescript = {
 							inlayHints = {
 								includeInlayParameterNameHints = "all",
 								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -41,7 +41,7 @@ return {
 								includeInlayFunctionLikeReturnTypeHints = true,
 								includeInlayEnumMemberValueHints = true,
 							},
-						},
+						}, ]]
 					},
 				},
 			},

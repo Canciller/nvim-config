@@ -38,7 +38,6 @@ require("lazy").setup({
 		{ import = "plugins/extras/langs/lua" },
 		{ import = "plugins/extras/langs/markdown" },
 		{ import = "plugins/extras/langs/json" },
-		{ "alec-gibson/nvim-tetris" },
 	},
 	defaults = {
 		version = false,

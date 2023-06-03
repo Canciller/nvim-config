@@ -112,6 +112,17 @@ return {
 						vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, o)
 						vim.keymap.set("n", "]d", vim.diagnostic.goto_next, o)
 
+						vim.keymap.set("n", "[e", function()
+							vim.diagnostic.goto_prev({
+								severity = vim.diagnostic.severity.ERROR,
+							})
+						end, o)
+						vim.keymap.set("n", "]e", function()
+							vim.diagnostic.goto_next({
+								severity = vim.diagnostic.severity.ERROR,
+							})
+						end, o)
+
 						-- Format on save
 						-- if client.supports_method("textDocument/formatting") then
 						local augroup = vim.api.nvim_create_augroup("LspFormatting", {
