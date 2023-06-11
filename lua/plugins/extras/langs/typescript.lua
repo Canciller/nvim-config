@@ -1,26 +1,17 @@
 return {
 	{
-		{
-			"nvim-treesitter/nvim-treesitter",
-			opts = function(_, opts)
-				if type(opts.ensure_installed) == "table" then
-					vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
-				end
-			end,
-		},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = { "jose-elias-alvarez/typescript.nvim" },
 		opts = {
 			servers = {
 				tsserver = {
-					settings = {
+					--[[ settings = {
 						completions = {
 							completeFunctionCalls = true,
 						},
-					},
+					}, ]]
 				},
+				tailwindcss = {},
 			},
 			setup = {
 				tsserver = function(_, opts)
@@ -32,6 +23,9 @@ return {
 						},
 						server = opts,
 					})
+				end,
+				tailwindcss = function(_, opts)
+					require("lspconfig").tailwindcss.setup(opts)
 				end,
 			},
 		},
@@ -52,11 +46,21 @@ return {
 
 			table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
 			table.insert(opts.sources, nls.builtins.diagnostics.tsc)
+
+			table.insert(opts.sources, nls.builtins.formatting.rustywind)
 		end,
 	},
 	{
 		"dmmulroy/tsc.nvim",
 		cmd = "TSC",
 		opts = {},
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = function(_, opts)
+			if type(opts.ensure_installed) == "table" then
+				vim.list_extend(opts.ensure_installed, { "typescript", "tsx", "javascript", "css", "html" })
+			end
+		end,
 	},
 }

@@ -1,15 +1,5 @@
 return {
 	{
-		{
-			"nvim-treesitter/nvim-treesitter",
-			opts = function(_, opts)
-				if type(opts.ensure_installed) == "table" then
-					vim.list_extend(opts.ensure_installed, { "swift" })
-				end
-			end,
-		},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
@@ -27,6 +17,14 @@ return {
 		opts = function(_, opts)
 			local nls = require("null-ls")
 			table.insert(opts.sources, nls.builtins.formatting.swiftformat)
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = function(_, opts)
+			if type(opts.ensure_installed) == "table" then
+				vim.list_extend(opts.ensure_installed, { "swift" })
+			end
 		end,
 	},
 }

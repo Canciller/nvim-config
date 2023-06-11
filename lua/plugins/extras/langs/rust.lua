@@ -3,14 +3,6 @@ return {
 		"rust-lang/rust.vim",
 	},
 	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = function(_, opts)
-			if type(opts.ensure_installed) == "table" then
-				vim.list_extend(opts.ensure_installed, { "rust" })
-			end
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = { "simrat39/rust-tools.nvim" },
 		opts = {
@@ -36,6 +28,14 @@ return {
 			local nls = require("null-ls")
 
 			table.insert(opts.sources, nls.builtins.formatting.rustfmt)
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = function(_, opts)
+			if type(opts.ensure_installed) == "table" then
+				vim.list_extend(opts.ensure_installed, { "rust" })
+			end
 		end,
 	},
 }
