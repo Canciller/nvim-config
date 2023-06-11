@@ -45,6 +45,10 @@ return {
 			source_selector = {
 				winbar = true,
 				content_layout = "center",
+				sources = {
+					{ source = "filesystem", display_name = " 󰉓 Files " },
+					{ source = "git_status", display_name = " 󰊢 Git " },
+				},
 			},
 			default_component_configs = {
 				name = {
@@ -61,13 +65,17 @@ return {
 						-- Change type
 						added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
 						modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
-						-- deleted = "D", -- this can only be used in the git_status source
+						deleted = "✖", -- this can only be used in the git_status source
 						renamed = "", -- this can only be used in the git_status source
 						-- Status type
-						untracked = "U",
+						-- untracked = "U",
+						untracked = "",
+						-- unstaged = "",
+						unstaged = " ",
+						-- staged = "A",
+						staged = " ",
 						ignored = "",
-						unstaged = "M",
-						staged = "A",
+						-- ignored = " ",
 						-- conflict = "",
 					},
 				},
