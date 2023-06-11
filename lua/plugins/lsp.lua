@@ -45,14 +45,7 @@ return {
 			vim.diagnostic.config(opts.diagnostics)
 
 			-- servers
-
-			-- local capabilities =
-			-- 	require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			-- this fucking line made jsx props to not be listed in cmp!!
-			-- capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 			for name, server_opts_or_empty in pairs(opts.servers) do
 				local server_opts = server_opts_or_empty or {}
@@ -60,21 +53,6 @@ return {
 				local final_server_opts = vim.tbl_deep_extend("force", {
 					capabilities = capabilities,
 					on_attach = function(client, bufnr)
-						-- Format on save
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = vim.api.nvim_create_augroup("LspFormatting", {}),
-							callback = function()
-								local buf = vim.api.nvim_get_current_buf()
-
-								vim.lsp.buf.format({
-									filter = function(c)
-										return c.name == "null-ls"
-									end,
-									bufnr = buf,
-								})
-							end,
-						})
-
 						-- LSP signature
 						require("lsp_signature").on_attach({
 							bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -118,6 +96,11 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		event = { "BufReadPre", "BufNewFile" },
+		opts = {},
+	},
+	{
+		"https://git.sr.ht/~nedia/auto-format.nvim",
+		event = "BufWinEnter",
 		opts = {},
 	},
 	--[[ {
