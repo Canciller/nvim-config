@@ -14,6 +14,10 @@ return {
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 
+			lspkind.init({
+				preset = "codicons",
+			})
+
 			return {
 				view = {
 					entries = {
@@ -71,6 +75,7 @@ return {
 					},
 				},
 				formatting = {
+					fields = { "kind", "abbr", "menu" },
 					format = lspkind.cmp_format({
 						mode = "symbol_text",
 						maxwidth = 50,
