@@ -23,10 +23,10 @@ return {
 			-- diagnostics
 
 			local signs = {
-				Error = "E",
-				Warn = "W",
-				Hint = "H",
-				Info = "I",
+				Error = " ",
+				Warn = " ",
+				Info = " ",
+				Hint = "💡",
 			}
 
 			for type, icon in pairs(signs) do
@@ -34,13 +34,13 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 			end
 
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = opts.diagnostics.float.border,
-			})
+			-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			-- 	border = opts.diagnostics.float.border,
+			-- })
 
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = opts.diagnostics.float.border,
-			})
+			-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+			-- 	border = opts.diagnostics.float.border,
+			-- })
 
 			vim.diagnostic.config(opts.diagnostics)
 
@@ -54,7 +54,7 @@ return {
 					capabilities = capabilities,
 					on_attach = function(client, bufnr)
 						-- LSP signature
-						require("lsp_signature").on_attach({
+						--[[ require("lsp_signature").on_attach({
 							bind = true, -- This is mandatory, otherwise border config won't get registered.
 							handler_opts = {
 								border = "rounded",
@@ -62,7 +62,7 @@ return {
 							hint_prefix = " ",
 							hint_enable = false,
 							hi_parameter = "IncSearch",
-						}, bufnr)
+						}, bufnr) ]]
 
 						--[[ if base_server_opts.inlay_hints then
 							require("lsp-inlayhints").on_attach(client, bufnr)
@@ -93,11 +93,11 @@ return {
 			}
 		end,
 	},
-	{
+	--[[ {
 		"j-hui/fidget.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {},
-	},
+	}, ]]
 	{
 		"https://git.sr.ht/~nedia/auto-format.nvim",
 		event = "BufWinEnter",

@@ -67,6 +67,9 @@ end
 
 return {
 	"nvim-telescope/telescope.nvim",
+	dependencies = {
+		"rcarriga/nvim-notify",
+	},
 	cmd = "Telescope",
 	version = false,
 	keys = {
@@ -202,5 +205,9 @@ return {
 			prompt_prefix = " ",
 			selection_caret = " ",
 		},
+		config = function(opts)
+			require("telescope").setup(opts)
+			require("telescope").load_extension("notify")
+		end,
 	},
 }

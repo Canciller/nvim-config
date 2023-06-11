@@ -11,5 +11,8 @@ return {
 		opts = {
 			-- configurations go here
 		},
+		init = function()
+			vim.g.navic_silence = true
+		end,
 	},
 }
