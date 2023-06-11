@@ -7,4 +7,17 @@ return {
 			end
 		end,
 	},
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			servers = {
+				graphql = {},
+			},
+			setup = {
+				graphql = function(_, opts)
+					require("lspconfig").graphql.setup(opts)
+				end,
+			},
+		},
+	},
 }

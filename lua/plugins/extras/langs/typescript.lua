@@ -4,13 +4,7 @@ return {
 		dependencies = { "jose-elias-alvarez/typescript.nvim" },
 		opts = {
 			servers = {
-				tsserver = {
-					--[[ settings = {
-						completions = {
-							completeFunctionCalls = true,
-						},
-					}, ]]
-				},
+				tsserver = {},
 				tailwindcss = {},
 			},
 			setup = {
