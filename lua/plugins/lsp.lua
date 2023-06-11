@@ -4,7 +4,6 @@ return {
 		dependencies = {
 			"ray-x/lsp_signature.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
-			"ms-jpq/coq_nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {

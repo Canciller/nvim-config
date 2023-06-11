@@ -15,33 +15,10 @@ return {
 		opts = {
 			servers = {
 				tsserver = {
-					-- inlay_hints = true
 					settings = {
 						completions = {
 							completeFunctionCalls = true,
 						},
-						--[[ typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-						javascript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						}, ]]
 					},
 				},
 			},
@@ -76,5 +53,10 @@ return {
 			table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
 			table.insert(opts.sources, nls.builtins.diagnostics.tsc)
 		end,
+	},
+	{
+		"dmmulroy/tsc.nvim",
+		cmd = "TSC",
+		opts = {},
 	},
 }

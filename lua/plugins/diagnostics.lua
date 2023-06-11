@@ -65,17 +65,14 @@ return {
 			   endfunction
 
 			   nnoremap <silent> <leader>xq :call ToggleQuickFix()<cr>
-			   nnoremap <silent> ]q :cnext<cr>
-			   nnoremap <silent> [q :cprev<cr>
-
 			   nnoremap <silent> <leader>xl :call ToggleLocationList()<cr>
 			 ]])
 
-			autocmd("QuickFixCmdPost", {
+			--[[ autocmd("QuickFixCmdPost", {
 				nested = true,
 				pattern = "[^l]*",
 				command = "cwindow",
-			})
+			}) ]]
 		end,
 	},
 	{

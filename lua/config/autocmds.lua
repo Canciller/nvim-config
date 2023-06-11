@@ -56,11 +56,3 @@ autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "tsconfig.json", "tsconfig.*.json" },
 	command = "setlocal filetype=jsonc",
 })
-
--- Quickfix
-augroup("Quickfix", { clear = true })
-autocmd("FileType", {
-	group = "Quickfix",
-	pattern = "qf",
-	command = "setlocal wrap",
-})
