@@ -35,7 +35,7 @@ return {
 			},
 			ensure_installed = {
 				"vim",
-				"comment",
+				-- "comment",
 				"help",
 				"lua",
 				"tsx",

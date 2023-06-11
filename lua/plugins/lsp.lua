@@ -1,46 +1,10 @@
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
 return {
-	{
-		"lvimuser/lsp-inlayhints.nvim",
-		lazy = false,
-		opts = {
-			inlay_hints = {
-				parameter_hints = {
-					show = true,
-					prefix = "<- ",
-					separator = ", ",
-					remove_colon_start = false,
-					remove_colon_end = true,
-				},
-				type_hints = {
-					-- type and other hints
-					show = true,
-					prefix = "=> ",
-					separator = ", ",
-					remove_colon_start = true,
-					remove_colon_end = false,
-				},
-				only_current_line = false,
-				-- separator between types and parameter hints. Note that type hints are
-				-- shown before parameter
-				labels_separator = " ",
-				-- whether to align to the length of the longest line in the file
-				max_len_align = false,
-				-- padding from the left if max_len_align is true
-				max_len_align_padding = 1,
-				-- highlight group
-				highlight = "LspInlayHint",
-				-- virt_text priority
-				priority = 0,
-			},
-		},
-	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"ray-x/lsp_signature.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
+			"ms-jpq/coq_nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
@@ -101,7 +65,7 @@ return {
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							group = vim.api.nvim_create_augroup("LspFormatting", {}),
 							callback = function()
-                local buf = vim.api.nvim_get_current_buf()
+								local buf = vim.api.nvim_get_current_buf()
 
 								vim.lsp.buf.format({
 									filter = function(c)
@@ -157,4 +121,39 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {},
 	},
+	--[[ {
+		"lvimuser/lsp-inlayhints.nvim",
+		lazy = false,
+		opts = {
+			inlay_hints = {
+				parameter_hints = {
+					show = true,
+					prefix = "<- ",
+					separator = ", ",
+					remove_colon_start = false,
+					remove_colon_end = true,
+				},
+				type_hints = {
+					-- type and other hints
+					show = true,
+					prefix = "=> ",
+					separator = ", ",
+					remove_colon_start = true,
+					remove_colon_end = false,
+				},
+				only_current_line = false,
+				-- separator between types and parameter hints. Note that type hints are
+				-- shown before parameter
+				labels_separator = " ",
+				-- whether to align to the length of the longest line in the file
+				max_len_align = false,
+				-- padding from the left if max_len_align is true
+				max_len_align_padding = 1,
+				-- highlight group
+				highlight = "LspInlayHint",
+				-- virt_text priority
+				priority = 0,
+			},
+		},
+	}, ]]
 }

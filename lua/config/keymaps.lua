@@ -22,7 +22,7 @@ map("", "<left>", "<nop>")
 map("", "<right>", "<nop>")
 
 -- disable esc in insert mode
--- map('i', '<esc>', '<nop>')
+map("i", "<esc>", "<nop>")
 
 -- enter normal mode in insert mode
 map("i", "jk", "<esc>")
