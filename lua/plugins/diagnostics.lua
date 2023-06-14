@@ -68,11 +68,11 @@ return {
 			   nnoremap <silent> <leader>xl :call ToggleLocationList()<cr>
 			 ]])
 
-			--[[ autocmd("QuickFixCmdPost", {
+			autocmd("QuickFixCmdPost", {
 				nested = true,
 				pattern = "[^l]*",
 				command = "cwindow",
-			}) ]]
+			})
 		end,
 	},
 	{

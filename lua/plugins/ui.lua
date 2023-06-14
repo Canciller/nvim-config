@@ -1,3 +1,4 @@
+---@diagnostic disable: duplicate-set-field
 return {
 	{
 		"folke/noice.nvim",
@@ -116,6 +117,22 @@ return {
 						event = "msg_show",
 						kind = "",
 						find = "more; before",
+					},
+					opts = { skip = true },
+				},
+				{
+					filter = {
+						event = "msg_show",
+						kind = "",
+						find = "more lines",
+					},
+					opts = { skip = true },
+				},
+				{
+					filter = {
+						event = "msg_show",
+						kind = "",
+						find = "more lines",
 					},
 					opts = { skip = true },
 				},

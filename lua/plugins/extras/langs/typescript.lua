@@ -45,11 +45,6 @@ return {
 		end,
 	},
 	{
-		"dmmulroy/tsc.nvim",
-		cmd = "TSC",
-		opts = {},
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = function(_, opts)
 			if type(opts.ensure_installed) == "table" then
