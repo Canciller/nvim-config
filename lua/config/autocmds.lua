@@ -2,57 +2,57 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Highlight on yank
-augroup("YankHighlight", { clear = true })
-autocmd("TextYankPost", {
-	group = "YankHighlight",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "1000" })
-	end,
+augroup('YankHighlight', { clear = true })
+autocmd('TextYankPost', {
+  group = 'YankHighlight',
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = '1000' })
+  end,
 })
 
 -- Remove whitespace on save
-autocmd("BufWritePre", {
-	pattern = "",
-	command = ":%s/\\s\\+$//e",
+autocmd('BufWritePre', {
+  pattern = '',
+  command = ':%s/\\s\\+$//e',
 })
 
 -- Don't auto comment new lines
-autocmd("BufEnter", {
-	pattern = "",
-	command = "set fo-=c fo-=r fo-=o",
+autocmd('BufEnter', {
+  pattern = '',
+  command = 'set fo-=c fo-=r fo-=o',
 })
 
 -- Save folds on write and restore on open
-augroup("RememberFolds", { clear = true })
-autocmd("BufWinLeave", {
-	group = "RememberFolds",
-	pattern = "*.*",
-	command = "mkview",
+augroup('RememberFolds', { clear = true })
+autocmd('BufWinLeave', {
+  group = 'RememberFolds',
+  pattern = '*.*',
+  command = 'mkview',
 })
-autocmd("BufWinEnter", {
-	group = "RememberFolds",
-	pattern = "*.*",
-	command = "silent! loadview",
+autocmd('BufWinEnter', {
+  group = 'RememberFolds',
+  pattern = '*.*',
+  command = 'silent! loadview',
 })
 
 -- Typescript
-augroup("TypescriptCompiler", { clear = true })
-autocmd("FileType", {
-	group = "TypescriptCompiler",
-	pattern = { "typescript", "typescriptreact" },
-	command = "compiler tsc",
+augroup('TypescriptCompiler', { clear = true })
+autocmd('FileType', {
+  group = 'TypescriptCompiler',
+  pattern = { 'typescript', 'typescriptreact' },
+  command = 'compiler tsc',
 })
 
-augroup("ReactHooksTypescript", { clear = true })
-autocmd({ "BufNewFile", "BufRead" }, {
-	group = "ReactHooksTypescript",
-	pattern = "use*.ts",
-	command = "setlocal filetype=typescriptreact",
+augroup('ReactHooksTypescript', { clear = true })
+autocmd({ 'BufNewFile', 'BufRead' }, {
+  group = 'ReactHooksTypescript',
+  pattern = 'use*.ts',
+  command = 'setlocal filetype=typescriptreact',
 })
 
-augroup("TsconfigJsonc", { clear = true })
-autocmd({ "BufNewFile", "BufRead" }, {
-	group = "TsconfigJsonc",
-	pattern = { "tsconfig.json", "tsconfig.*.json" },
-	command = "setlocal filetype=jsonc",
+augroup('TsconfigJsonc', { clear = true })
+autocmd({ 'BufNewFile', 'BufRead' }, {
+  group = 'TsconfigJsonc',
+  pattern = { 'tsconfig.json', 'tsconfig.*.json' },
+  command = 'setlocal filetype=jsonc',
 })

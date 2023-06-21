@@ -1,23 +1,23 @@
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = function(_, opts)
-			if type(opts.ensure_installed) == "table" then
-				vim.list_extend(opts.ensure_installed, { "graphql" })
-			end
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		opts = {
-			servers = {
-				graphql = {},
-			},
-			setup = {
-				graphql = function(_, opts)
-					require("lspconfig").graphql.setup(opts)
-				end,
-			},
-		},
-	},
+  {
+    'nvim-treesitter/nvim-treesitter',
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == 'table' then
+        vim.list_extend(opts.ensure_installed, { 'graphql' })
+      end
+    end,
+  },
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      servers = {
+        graphql = {},
+      },
+      setup = {
+        graphql = function(_, opts)
+          require('lspconfig').graphql.setup(opts)
+        end,
+      },
+    },
+  },
 }
