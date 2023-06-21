@@ -41,7 +41,9 @@ return {
         local final_server_opts = vim.tbl_deep_extend('force', {
           capabilities = capabilities,
           on_attach = function(client, bufnr)
-            vim.lsp.buf.inlay_hint(bufnr, true)
+            if client.supports_method('textDocument/inlayHint') then
+              vim.lsp.buf.inlay_hint(bufnr, true)
+            end
 
             if server_opts.on_attach then
               server_opts.on_attach(client, bufnr)
