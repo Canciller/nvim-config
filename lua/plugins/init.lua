@@ -1,5 +1,6 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
+---@diagnostic disable-next-line: deprecated
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
@@ -42,6 +43,7 @@ require('lazy').setup({
   defaults = {
     version = false,
   },
+  ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
     path = '~/Projects',
   },

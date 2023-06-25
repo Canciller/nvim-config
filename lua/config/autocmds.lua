@@ -67,14 +67,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.api.nvim_create_autocmd('InsertEnter', {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.inlay_hint(bufnr, true)
+          pcall(vim.lsp.buf.inlay_hint, bufnr, true)
         end,
       })
 
       vim.api.nvim_create_autocmd('InsertLeave', {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.inlay_hint(bufnr, false)
+          pcall(vim.lsp.buf.inlay_hint, bufnr, false)
         end,
       })
     end

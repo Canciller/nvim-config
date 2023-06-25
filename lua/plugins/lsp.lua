@@ -59,7 +59,6 @@ return {
       return {
         root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
         sources = {
-          nls.builtins.formatting.shfmt,
           nls.builtins.code_actions.gitsigns,
           nls.builtins.diagnostics.todo_comments,
         },
