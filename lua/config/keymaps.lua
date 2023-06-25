@@ -77,7 +77,7 @@ map('n', 'q', '<nop>')
 map('n', '<leader>q', 'q')
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  group = vim.api.nvim_create_augroup('LspKeymapsConfig', { clear = true }),
   callback = function(ev)
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 

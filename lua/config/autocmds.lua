@@ -56,3 +56,27 @@ autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = { 'tsconfig.json', 'tsconfig.*.json' },
   command = 'setlocal filetype=jsonc',
 })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('LspInlayHintConfig', { clear = true }),
+  callback = function(e)
+    local bufnr = e.buf
+    local client = vim.lsp.get_client_by_id(e.data.client_id)
+
+    if client.supports_method('textDocument/inlayHint') then
+      vim.api.nvim_create_autocmd('InsertEnter', {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.inlay_hint(bufnr, true)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd('InsertLeave', {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.inlay_hint(bufnr, false)
+        end,
+      })
+    end
+  end,
+})
