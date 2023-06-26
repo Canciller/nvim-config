@@ -1,11 +1,6 @@
 return {
   {
-    'f-person/git-blame.nvim',
-    config = function()
-      vim.g.gitblame_set_extmark_options = {
-        hl_mode = 'combine',
-      }
-    end,
+    'tpope/vim-fugitive',
   },
   {
     'lewis6991/gitsigns.nvim',
@@ -33,6 +28,14 @@ return {
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       end,
     },
+  },
+  {
+    'f-person/git-blame.nvim',
+    config = function()
+      vim.g.gitblame_set_extmark_options = {
+        hl_mode = 'combine',
+      }
+    end,
   },
   {
     'akinsho/git-conflict.nvim',
