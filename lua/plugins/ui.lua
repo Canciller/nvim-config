@@ -136,6 +136,11 @@ return {
           },
           opts = { skip = true },
         },
+        -- always route any messages with more than 20 lines to the vsplit view
+        {
+          view = 'vsplit',
+          filter = { event = 'msg_show', min_height = 20 },
+        },
       },
       views = {
         cmdline_popup = {
