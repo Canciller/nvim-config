@@ -33,6 +33,11 @@ return {
           },
         },
         tailwindcss = {},
+        eslint = {
+          settings = {
+            format = false,
+          },
+        },
       },
       setup = {
         tsserver = function(_, opts)
@@ -48,6 +53,9 @@ return {
         tailwindcss = function(_, opts)
           require('lspconfig').tailwindcss.setup(opts)
         end,
+        eslint = function(_, opts)
+          require('lspconfig').eslint.setup(opts)
+        end,
       },
     },
   },
@@ -55,18 +63,9 @@ return {
     'jose-elias-alvarez/null-ls.nvim',
     opts = function(_, opts)
       local nls = require('null-ls')
-      table.insert(
-        opts.sources,
-        nls.builtins.diagnostics.eslint_d.with({
-          diagnostics_format = '[eslint] #{m}\n(#{c})',
-        })
-      )
-      table.insert(opts.sources, nls.builtins.code_actions.eslint_d)
       table.insert(opts.sources, nls.builtins.formatting.eslint_d)
-      -- table.insert(opts.sources, nls.builtins.formatting.prettierd)
 
       table.insert(opts.sources, require('typescript.extensions.null-ls.code-actions'))
-      table.insert(opts.sources, nls.builtins.diagnostics.tsc)
 
       table.insert(opts.sources, nls.builtins.formatting.rustywind)
     end,
