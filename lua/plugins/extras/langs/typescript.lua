@@ -38,6 +38,7 @@ return {
             format = false,
           },
         },
+        cssls = {},
       },
       setup = {
         tsserver = function(_, opts)
@@ -55,6 +56,9 @@ return {
         end,
         eslint = function(_, opts)
           require('lspconfig').eslint.setup(opts)
+        end,
+        cssls = function(_, opts)
+          require('lspconfig').cssls.setup(opts)
         end,
       },
     },
@@ -74,7 +78,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'typescript', 'tsx', 'javascript', 'css', 'html' })
+        vim.list_extend(opts.ensure_installed, { 'typescript', 'tsx', 'javascript', 'css', 'scss', 'html' })
       end
     end,
   },
