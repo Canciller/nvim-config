@@ -1,7 +1,7 @@
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v2.x',
+    branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
@@ -87,7 +87,9 @@ return {
   },
   {
     's1n7ax/nvim-window-picker',
-    lazy = false,
+    version = '2.0.1',
+    event = 'VeryLazy',
+    name = 'window-picker',
     opts = {
       show_prompt = false,
       fg_color = '#ededed',
