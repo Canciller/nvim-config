@@ -32,7 +32,6 @@ require('lazy').setup({
     { import = 'plugins/lsp' },
     { import = 'plugins/diagnostics' },
     { import = 'plugins/completion' },
-    { import = 'plugins/extras/langs/swift' },
     { import = 'plugins/extras/langs/typescript' },
     { import = 'plugins/extras/langs/graphql' },
     { import = 'plugins/extras/langs/rust' },

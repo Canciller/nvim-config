@@ -76,6 +76,7 @@ map('n', '<leader>go', ':tabedit $CONFIG/nvim/lua/options.lua<cr>')
 map('n', 'q', '<nop>')
 map('n', '<leader>q', 'q')
 
+-- lsp
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('LspKeymapsConfig', { clear = true }),
   callback = function(ev)
@@ -96,7 +97,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, o)
 
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, o)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, o)
     vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, o)
 
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, o)
