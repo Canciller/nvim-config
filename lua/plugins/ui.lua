@@ -191,6 +191,15 @@ return {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
     },
+    keys = {
+      {
+        '<leader>dn',
+        function()
+          require('notify').dismiss()
+        end,
+        desc = 'Dismiss all notifications',
+      },
+    },
   },
   {
     'stevearc/dressing.nvim',
