@@ -13,6 +13,7 @@
   "git-blame.nvim": { "branch": "master", "commit": "a36b277e527f9d34efe16c3636555ce0e0c0464c" },
   "git-conflict.nvim": { "branch": "main", "commit": "896261933afe2fddf6fb043d9cd4d88301b151a9" },
   "gitsigns.nvim": { "branch": "main", "commit": "bce4576a9047085a528c479a7fe1e2f6b787b6c1" },
+  "goto-preview": { "branch": "main", "commit": "84532db88f8ee272bcd1c07cda55884e23fd9087" },
   "indent-blankline.nvim": { "branch": "master", "commit": "9637670896b68805430e2f72cf5d16be5b97a22a" },
   "lazy.nvim": { "branch": "main", "commit": "2a9354c7d2368d78cbd5575a51a2af5bd8a6ad01" },
   "lspkind.nvim": { "branch": "master", "commit": "57610d5ab560c073c465d6faf0c19f200cb67e6e" },
@@ -46,7 +47,6 @@
   "tokyonight.nvim": { "branch": "main", "commit": "9a01eada39558dc3243278e6805d90e8dff45dc0" },
   "trouble.nvim": { "branch": "main", "commit": "3f85d8ed30e97ceeddbbcf80224245d347053711" },
   "typescript-tools.nvim": { "branch": "master", "commit": "05dcc6dfc3fe032a3e12f05afff0c1bbe3d490be" },
-  "typescript.nvim": { "branch": "main", "commit": "4de85ef699d7e6010528dcfbddc2ed4c2c421467" },
   "vim-fugitive": { "branch": "master", "commit": "99db68d9b3304580bd383da7aaee05c7a954a344" },
   "vim-illuminate": { "branch": "master", "commit": "8c910b2f84ae6acd9b4b17330bb94dd783c0c11a" },
   "window-picker": { "branch": "main", "commit": "6e9875711b9d5cefcf77cc6e30dcce53135b9cc5" }

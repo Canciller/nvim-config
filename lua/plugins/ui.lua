@@ -265,4 +265,31 @@ return {
       },
     },
   },
+  {
+    'rmagatti/goto-preview',
+    opts = {},
+    keys = {
+      {
+        'gpd',
+        function()
+          require('goto-preview').goto_preview_definition()
+        end,
+        desc = 'Show definition in preview window',
+      },
+      {
+        'gpi',
+        function()
+          require('goto-preview').goto_preview_implementation()
+        end,
+        desc = 'Show implementation in preview window',
+      },
+      {
+        'gP',
+        function()
+          require('goto-preview').close_all_win()
+        end,
+        desc = 'Close all preview windows',
+      },
+    },
+  },
 }
