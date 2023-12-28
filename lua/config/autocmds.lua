@@ -57,6 +57,37 @@ autocmd({ 'BufNewFile', 'BufRead' }, {
   command = 'setlocal filetype=jsonc',
 })
 
+local function supports_formatting(client)
+  return client.supports_method('textDocument/formatting')
+end
+
+local function get_filter(filetype)
+  local ok, sources = pcall(require, 'null-ls.sources')
+  local prefer_null_ls = true
+
+  if ok and prefer_null_ls then
+    return function(client)
+      if #sources.get_available(filetype, require('null-ls').methods.FORMATTING) > 0 then
+        return client.name == 'null-ls'
+      else
+        return supports_formatting(client)
+      end
+    end
+  else
+    return function(client)
+      return supports_formatting(client)
+    end
+  end
+end
+
+vim.api.nvim_create_user_command('Format', function()
+  local ft = vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), 'filetype')
+
+  vim.lsp.buf.format({
+    filter = get_filter(ft),
+  })
+end, {})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('LspInlayHintConfig', { clear = true }),
   callback = function(e)

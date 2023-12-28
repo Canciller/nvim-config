@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 local o = vim.opt
 local cmd = vim.cmd
 

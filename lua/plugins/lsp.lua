@@ -67,6 +67,7 @@ return {
   },
   {
     'https://git.sr.ht/~nedia/auto-format.nvim',
+    enabled = false,
     event = 'BufWinEnter',
     opts = {},
   },
