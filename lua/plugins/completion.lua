@@ -8,11 +8,26 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'onsails/lspkind.nvim',
+      {
+        'L3MON4D3/luasnip',
+        build = (not jit.os:find('Windows'))
+            and "echo -e 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
+          or nil,
+      },
       'saadparwaiz1/cmp_luasnip',
+      'rafamadriz/friendly-snippets',
     },
     opts = function()
       local cmp = require('cmp')
       local lspkind = require('lspkind')
+      local luasnip = require('luasnip')
+
+      luasnip.config.setup({
+        history = true,
+        delete_check_events = 'TextChanged',
+      })
+
+      require('luasnip.loaders.from_vscode').lazy_load()
 
       lspkind.init({
         preset = 'codicons',
@@ -44,13 +59,19 @@ return {
           ['<c-f>'] = cmp.mapping.scroll_docs(4),
           ['<c-space>'] = cmp.mapping.complete(),
           ['<c-e>'] = cmp.mapping.abort(),
-          ['<s-cr>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<cr>'] = cmp.mapping.confirm({
+          ['<c-y>'] = cmp.mapping.confirm({
             select = true,
           }),
+          ['<C-l>'] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            end
+          end, { 'i', 's' }),
+          ['<C-h>'] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            end
+          end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
@@ -90,32 +111,34 @@ return {
       }
     end,
   },
-  {
-    'L3MON4D3/LuaSnip',
-    build = (not jit.os:find('Windows'))
-        and "echo -e 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
-      or nil,
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      config = function()
-        require('luasnip.loaders.from_vscode').lazy_load()
-      end,
-    },
-    opts = {
-      history = true,
-      delete_check_events = 'TextChanged',
-    },
-    -- stylua: ignore
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true, silent = true, mode = "i",
-      },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-    },
-  },
+  -- {
+  --   'L3MON4D3/LuaSnip',
+  --   build = (not jit.os:find('Windows'))
+  --       and "echo -e 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
+  --     or nil,
+  --   dependencies = {
+  --     {
+  --       'rafamadriz/friendly-snippets',
+  --       config = function()
+  --         require('luasnip.loaders.from_vscode').lazy_load()
+  --       end,
+  --     },
+  --   },
+  --   opts = {
+  --     history = true,
+  --     delete_check_events = 'TextChanged',
+  --   },
+  --   -- stylua: ignore
+  --   keys = {
+  --     {
+  --       "<tab>",
+  --       function()
+  --         return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+  --       end,
+  --       expr = true, silent = true, mode = "i",
+  --     },
+  --     { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+  --     { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+  --   },
+  -- },
 }

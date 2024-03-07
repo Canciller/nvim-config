@@ -58,3 +58,5 @@ o.list = true
 -- o.listchars:append 'eol:↴'
 
 cmd('filetype on')
+
+vim.g.skip_ts_context_commentstring_module = true

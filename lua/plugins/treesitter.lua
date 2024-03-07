@@ -10,7 +10,6 @@ return {
     build = ':TSUpdate',
     version = false,
     dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
       'windwp/nvim-ts-autotag',
       -- 'mrjones2014/nvim-ts-rainbow',
     },
@@ -37,10 +36,6 @@ return {
         'toml',
         -- "comment",
       },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
       autotag = {
         enable = true,
         enable_close_on_slash = false,
@@ -52,5 +47,11 @@ return {
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
     end,
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    config = {
+      enable_autocmd = false,
+    },
   },
 }
