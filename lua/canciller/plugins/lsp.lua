@@ -97,16 +97,29 @@ return {
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- Diagnostic keymaps
-          map('[d', vim.diagnostic.goto_prev, 'Go to previous [D]iagnostic message')
-          map(']d', vim.diagnostic.goto_next, 'Go to next [D]iagnostic messase')
+          map('[d', function()
+            vim.diagnostic.goto_prev({
+              wrap = false,
+            })
+          end, 'Go to previous [D]iagnostic message')
+
+          map(']d', function()
+            vim.diagnostic.goto_next({
+              wrap = false,
+            })
+          end, 'Go to next [D]iagnostic messase')
+
           map('[e', function()
             vim.diagnostic.goto_prev({
               severity = vim.diagnostic.severity.ERROR,
+              wrap = false,
             })
           end, 'Go to previous [E]rror message')
+
           map(']e', function()
             vim.diagnostic.goto_next({
               severity = vim.diagnostic.severity.ERROR,
+              wrap = false,
             })
           end, 'Go to next [E]rror message')
 
@@ -214,10 +227,35 @@ return {
   {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {
-      settings = {
-        expose_as_code_action = 'all',
-      },
-    },
+    config = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+      local on_publish_diagnostics = function(_, result, ctx, config)
+        local dignostics = result.diagnostics or {}
+
+        for _, diagnostic in ipairs(dignostics) do
+          local message = diagnostic.message
+
+          message = message:gsub('  ', '')
+          message = message:gsub("%s'", "\n\t'")
+          message = message:gsub("'%s", "'\n")
+
+          diagnostic.message = message
+        end
+
+        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+      end
+
+      require('typescript-tools').setup({
+        settings = {
+          expose_as_code_action = 'all',
+        },
+        handlers = {
+          ['textDocument/publishDiagnostics'] = on_publish_diagnostics,
+        },
+        capabilities = capabilities,
+      })
+    end,
   },
 }
