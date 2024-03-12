@@ -73,12 +73,60 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-    vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[,] Find existing buffers' })
+    vim.keymap.set('n', '<leader>s.', function()
+      builtin.oldfiles(require('telescope.themes').get_dropdown({
+        only_cwd = true,
+        layout_config = {
+          width = 0.6,
+          height = 0.9,
+        },
+        path_display = {
+          'truncate',
+        },
+        previewer = false,
+      }))
+    end, { desc = '[S]earch Recent Files ("." for repeat)' })
 
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+    vim.keymap.set('n', '<leader><leader>', function()
+      builtin.buffers(require('telescope.themes').get_dropdown({
+        layout_config = {
+          width = 0.6,
+          height = 0.9,
+        },
+        path_display = {
+          'truncate',
+        },
+        previewer = false,
+      }))
+    end, { desc = '[,] Find existing buffers' })
+
+    vim.keymap.set('n', '<leader>sf', function()
+      builtin.find_files(require('telescope.themes').get_dropdown({
+        hidden = true,
+        layout_config = {
+          width = 0.6,
+          height = 0.9,
+        },
+        path_display = {
+          'truncate',
+        },
+        previewer = false,
+      }))
+    end, { desc = '[S]earch [F]iles' })
+
     vim.keymap.set('n', '<leader>snf', function()
-      builtin.find_files({ no_ignore = true })
+      builtin.find_files(require('telescope.themes').get_dropdown({
+        hidden = true,
+        no_ignore = true,
+        layout_config = {
+          width = 0.6,
+          height = 0.9,
+        },
+        path_display = {
+          'truncate',
+        },
+        previewer = false,
+      }))
     end, { desc = '[S]earch [N]o ignore [F]iles' })
 
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
