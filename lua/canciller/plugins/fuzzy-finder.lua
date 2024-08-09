@@ -80,9 +80,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           width = 0.6,
           height = 0.9,
         },
-        path_display = {
-          'truncate',
-        },
+        path_display = { 'truncate' },
         previewer = false,
       }))
     end, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -93,9 +91,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           width = 0.6,
           height = 0.9,
         },
-        path_display = {
-          'truncate',
-        },
+        path_display = { 'truncate' },
         previewer = false,
       }))
     end, { desc = '[,] Find existing buffers' })
@@ -107,9 +103,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           width = 0.6,
           height = 0.9,
         },
-        path_display = {
-          'truncate',
-        },
+        path_display = { 'truncate' },
         previewer = false,
       }))
     end, { desc = '[S]earch [F]iles' })
@@ -122,9 +116,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           width = 0.6,
           height = 0.9,
         },
-        path_display = {
-          'truncate',
-        },
+        path_display = { 'truncate' },
         previewer = false,
       }))
     end, { desc = '[S]earch [N]o ignore [F]iles' })

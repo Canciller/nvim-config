@@ -11,6 +11,8 @@ return {
       { 'rmagatti/goto-preview', opts = {} },
     },
     config = function()
+      require('mason').setup()
+
       -- Brief Aside: **What is LSP?**
       --
       -- LSP is an acronym you've probably heard, but might not understand what it is.
@@ -52,18 +54,33 @@ return {
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-T>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', function()
+            require('telescope.builtin').lsp_definitions({
+              show_line = false,
+              path_display = { 'truncate' },
+            })
+          end, '[G]oto [D]efinition')
 
           map('gpd', require('goto-preview').goto_preview_definition, '[G]oto [P]review [D]efinition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', function()
+            require('telescope.builtin').lsp_references({
+              show_line = false,
+              path_display = { 'truncate' },
+            })
+          end, '[G]oto [R]eferences')
 
           map('gpr', require('goto-preview').goto_preview_references, '[G]oto [P]review [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gI', function()
+            require('telescope.builtin').lsp_implementations({
+              show_line = false,
+              path_display = { 'truncate' },
+            })
+          end, '[G]oto [I]mplementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
@@ -158,10 +175,51 @@ return {
       --  - filetypes (table): Override the default list of associated filetypes for the server
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+      -- Required for vue stuff
+      local mason_registry = require('mason-registry')
+      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path()
+        .. '/node_modules/@vue/language-server'
+
       local servers = {
+        volar = {
+          init_options = {
+            vue = {
+              hybridMode = true,
+            },
+          },
+        },
+        vtsls = {
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+            'vue',
+          },
+          settings = {
+            vtsls = {
+              tsserver = {
+                globalPlugins = {
+                  {
+                    name = '@vue/typescript-plugin',
+                    location = vue_language_server_path,
+                    languages = { 'vue' },
+                    configNamespace = 'typescript',
+                    enableForWorkspaceTypeScriptVersions = true,
+                  },
+                },
+              },
+            },
+          },
+        },
+
         tailwindcss = {},
         eslint = {},
+
+        gopls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -199,14 +257,14 @@ return {
       --    :Mason
       --
       --  You can press `g?` for help in this menu
-      require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format lua code
+        'stylua',
         'eslint_d',
+        'prettierd',
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -226,6 +284,7 @@ return {
   },
   {
     'pmizio/typescript-tools.nvim',
+    enabled = false,
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -247,6 +306,10 @@ return {
         vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
       end
 
+      local mason_registry = require('mason-registry')
+      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path()
+        .. '/node_modules/@vue/language-server'
+
       require('typescript-tools').setup({
         settings = {
           expose_as_code_action = 'all',
@@ -255,6 +318,18 @@ return {
           ['textDocument/publishDiagnostics'] = on_publish_diagnostics,
         },
         capabilities = capabilities,
+        init_options = {
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = vue_language_server_path,
+              languages = { 'vue' },
+              configNamespace = 'typescript',
+              enableForWorkspaceTypeScriptVersions = true,
+            },
+          },
+        },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
       })
     end,
   },

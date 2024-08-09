@@ -17,29 +17,21 @@ return { -- Autocompletion
     },
     'saadparwaiz1/cmp_luasnip',
 
-    -- Adds other completion capabilities.
-    --  nvim-cmp does not ship with all sources by default. They are split
-    --  into multiple repos for maintenance purposes.
+    'onsails/lspkind.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'rasulomaroff/cmp-bufname',
     'hrsh7th/cmp-nvim-lsp-signature-help',
-    {
-      'zbirenbaum/copilot-cmp',
-      opts = {},
-    },
 
-    -- If you want to add a bunch of pre-configured snippets,
-    --    you can use this plugin to help you. It even has snippets
-    --    for various frameworks/libraries/etc. but you will have to
-    --    set up the ones that are useful for you.
     'rafamadriz/friendly-snippets',
   },
   config = function()
     -- See `:help cmp`
     local cmp = require('cmp')
     local luasnip = require('luasnip')
+    local lspkind = require('lspkind')
+
     luasnip.config.setup({})
 
     cmp.setup({
@@ -48,6 +40,10 @@ return { -- Autocompletion
           name = 'custom',
           selection_order = 'near_cursor',
         },
+      },
+      ---@diagnostic disable-next-line: missing-fields
+      formatting = {
+        format = lspkind.cmp_format(),
       },
       snippet = {
         expand = function(args)
@@ -99,7 +95,6 @@ return { -- Autocompletion
         end, { 'i', 's' }),
       }),
       sources = {
-        { name = 'copilot' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },

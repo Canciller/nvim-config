@@ -3,6 +3,8 @@ require('canciller.keymaps')
 require('canciller.autocmds')
 require('canciller.commands')
 
+-- require('canciller.load_test_lsp')
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -52,13 +54,19 @@ require('lazy').setup({
       require('which-key').setup()
 
       -- Document existing key chains
-      require('which-key').register({
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>sn'] = { name = '[S]earch [N]o ignore', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+      require('which-key').add({
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>c_', hidden = true },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>d_', hidden = true },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>r_', hidden = true },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>s_', hidden = true },
+        { '<leader>sn', group = '[S]earch [N]o ignore' },
+        { '<leader>sn_', hidden = true },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>w_', hidden = true },
       })
     end,
   },
@@ -127,14 +135,22 @@ require('lazy').setup({
 
   {
     'zbirenbaum/copilot.lua',
+    enabled = false,
     cmd = 'Copilot',
     event = 'InsertEnter',
     opts = {
       suggestion = {
-        enabled = false,
+        enabled = true,
+        auto_trigger = true,
+        keymap = {
+          -- Only works on macOS
+          accept = '<c-enter>',
+          next = '<D-]>',
+          prev = '<D-[>',
+        },
       },
       panel = {
-        enabled = false,
+        enabled = true,
       },
     },
   },
@@ -153,14 +169,14 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   dir = '~/Projects/typescript-type-checker.nvim',
-  --   opts = {},
-  -- },
   {
-    'Canciller/typescript-type-checker.nvim',
+    dir = '~/Projects/typescript-type-checker.nvim',
     opts = {},
   },
+  -- {
+  --   'Canciller/typescript-type-checker.nvim',
+  --   opts = {},
+  -- },
 
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for kickstart
   --
