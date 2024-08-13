@@ -1,8 +1,5 @@
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    'windwp/nvim-ts-autotag',
-  },
   build = ':TSUpdate',
   config = function()
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -14,7 +11,6 @@ return { -- Highlight, edit, and navigate code
       auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
-      autotag = { enable = true },
     })
 
     -- There are additional nvim-treesitter modules that you can use to interact
