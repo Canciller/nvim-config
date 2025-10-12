@@ -4,7 +4,9 @@ require('canciller.autocmds')
 require('canciller.commands')
 
 vim.lsp.enable('lua_ls')
-vim.lsp.enable('ts_ls')
+-- vim.lsp.enable('ts_ls')
+vim.lsp.enable('tsgo')
+vim.lsp.enable('tailwindcss')
 
 -- require('canciller.load_test_lsp')
 
