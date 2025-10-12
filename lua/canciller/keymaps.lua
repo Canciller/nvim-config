@@ -31,8 +31,8 @@ map('n', '<c-+>', '<c-]>')
 -- map('n', '<s-tab>', ':tabp<cr>', { silent = true, desc = 'Move to next tab' })
 
 -- Buffer movement
-map('n', '<tab>', ':bnext<cr>', { silent = true, desc = 'Move to previous buffer' })
-map('n', '<s-tab>', ':bprev<cr>', { silent = true, desc = 'Move to next buffer' })
+-- map('n', '<tab>', ':bnext<cr>', { silent = true, desc = 'Move to previous buffer' })
+-- map('n', '<s-tab>', ':bprev<cr>', { silent = true, desc = 'Move to next buffer' })
 
 -- Move to end/start of line
 map('n', 'L', '$')

@@ -46,16 +46,16 @@ return {
       lualine_z = {},
     },
     tabline = {
-      lualine_a = {
-        {
-          'buffers',
-          mode = 2,
-          symbols = {
-            alternate_file = '',
-            modified = ' [+]',
-          },
-        },
-      },
+      -- lualine_a = {
+      --   {
+      --     'buffers',
+      --     mode = 2,
+      --     symbols = {
+      --       alternate_file = '',
+      --       modified = ' [+]',
+      --     },
+      --   },
+      -- },
     },
     winbar = {},
     inactive_winbar = {},
