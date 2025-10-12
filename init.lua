@@ -3,6 +3,9 @@ require('canciller.keymaps')
 require('canciller.autocmds')
 require('canciller.commands')
 
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('ts_ls')
+
 -- require('canciller.load_test_lsp')
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -15,22 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
-  { 'numToStr/Comment.nvim', opts = {} },
-
-  -- Adds git related signs to the gutter, as well as utilities for managing changes
-  {
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
 
   -- NOTE: Plugins can also be configured to run lua code when they are loaded.
   --
@@ -51,7 +38,11 @@ require('lazy').setup({
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
+      require('which-key').setup({
+        icons = {
+          mappings = false,
+        },
+      })
 
       -- Document existing key chains
       require('which-key').add({
@@ -67,16 +58,10 @@ require('lazy').setup({
         { '<leader>sn_', hidden = true },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>w_', hidden = true },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>g_', hidden = true },
       })
     end,
-  },
-
-  -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
   },
 
   -- Collection of various small independent plugins/modules
@@ -90,24 +75,6 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup({ n_lines = 500 })
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require('mini.statusline')
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
 
@@ -119,6 +86,7 @@ require('lazy').setup({
 
   {
     'gbprod/substitute.nvim',
+    enabled = false,
     config = function()
       require('substitute').setup({})
 
@@ -130,29 +98,26 @@ require('lazy').setup({
   },
 
   {
-    'knubie/vim-kitty-navigator',
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    opts = {},
+  -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
   },
 
   {
-    'zbirenbaum/copilot.lua',
-    enabled = false,
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    opts = {
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-          -- Only works on macOS
-          accept = '<c-enter>',
-          next = '<D-]>',
-          prev = '<D-[>',
-        },
-      },
-      panel = {
-        enabled = true,
-      },
-    },
+    'tris203/precognition.nvim',
+    opts = {},
+  },
+
+  {
+    'knubie/vim-kitty-navigator',
   },
 
   {

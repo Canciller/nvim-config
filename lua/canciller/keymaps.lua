@@ -27,8 +27,12 @@ map('t', 'jk', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 map('n', '<c-+>', '<c-]>')
 
 -- Tab movement
-map('n', '<tab>', ':tabn<cr>', { silent = true, desc = 'Move to previous tab' })
-map('n', '<s-tab>', ':tabp<cr>', { silent = true, desc = 'Move to next tab' })
+-- map('n', '<tab>', ':tabn<cr>', { silent = true, desc = 'Move to previous tab' })
+-- map('n', '<s-tab>', ':tabp<cr>', { silent = true, desc = 'Move to next tab' })
+
+-- Buffer movement
+map('n', '<tab>', ':bnext<cr>', { silent = true, desc = 'Move to previous buffer' })
+map('n', '<s-tab>', ':bprev<cr>', { silent = true, desc = 'Move to next buffer' })
 
 -- Move to end/start of line
 map('n', 'L', '$')

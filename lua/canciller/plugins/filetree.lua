@@ -17,6 +17,7 @@ return {
       vim.cmd([[nnoremap <silent> - :Oil<cr>]])
     end,
   },
+
   {
     'nvim-neo-tree/neo-tree.nvim',
     version = '*',
@@ -72,7 +73,7 @@ return {
       },
     },
     init = function()
-      vim.cmd([[nnoremap <silent> \ :Neotree<cr>]])
+      vim.cmd([[nnoremap <silent> \ :Neotree toggle<cr>]])
     end,
   },
 }
