@@ -137,25 +137,35 @@ return {
     },
 
     -- (Default) Only show the documentation popup when manually triggered
-    completion = { documentation = { auto_show = false } },
+    completion = {
+      documentation = { auto_show = false },
+      menu = {
+        draw = {
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'label_description', gap = 1 },
+          },
+        },
+      },
+    },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = {
-        -- 'lazydev',
+        'lazydev',
         'lsp',
         'path',
         'snippets',
         'buffer',
       },
       providers = {
-        -- lazydev = {
-        --   name = 'LazyDev',
-        --   module = 'lazydev.integrations.blink',
-        --   -- make lazydev completions top priority (see `:h blink.cmp`)
-        --   score_offset = 100,
-        -- },
+        lazydev = {
+          name = 'LazyDev',
+          module = 'lazydev.integrations.blink',
+          -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 100,
+        },
       },
     },
 
@@ -167,4 +177,5 @@ return {
     fuzzy = { implementation = 'prefer_rust_with_warning' },
   },
   opts_extend = { 'sources.default' },
+  signature = { enabled = true },
 }

@@ -4,9 +4,12 @@ require('canciller.autocmds')
 require('canciller.commands')
 
 vim.lsp.enable('lua_ls')
+vim.lsp.enable('vtsls')
 -- vim.lsp.enable('ts_ls')
-vim.lsp.enable('tsgo')
+-- vim.lsp.enable('tsgo')
 vim.lsp.enable('tailwindcss')
+vim.lsp.enable('eslint')
+vim.lsp.enable('biome')
 
 -- require('canciller.load_test_lsp')
 
@@ -118,9 +121,9 @@ require('lazy').setup({
     opts = {},
   },
 
-  {
-    'knubie/vim-kitty-navigator',
-  },
+  -- {
+  --   'knubie/vim-kitty-navigator',
+  -- },
 
   {
     'yorickpeterse/nvim-pqf',
@@ -136,10 +139,10 @@ require('lazy').setup({
     end,
   },
 
-  {
-    dir = '~/Projects/typescript-type-checker.nvim',
-    opts = {},
-  },
+  -- {
+  --   dir = '~/Projects/typescript-type-checker.nvim',
+  --   opts = {},
+  -- },
   -- {
   --   'Canciller/typescript-type-checker.nvim',
   --   opts = {},
