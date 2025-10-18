@@ -22,7 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
 
   -- NOTE: Plugins can also be configured to run lua code when they are loaded.
   --
@@ -139,10 +139,6 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   dir = '~/Projects/typescript-type-checker.nvim',
-  --   opts = {},
-  -- },
   -- {
   --   'Canciller/typescript-type-checker.nvim',
   --   opts = {},

@@ -1,3 +1,5 @@
+-- NOTE: If clipboard is not working in windows, make sure to install win32yank from https://github.com/equalsraf/win32yank
+
 local o = vim.opt
 
 o.shortmess:append({ I = true })
