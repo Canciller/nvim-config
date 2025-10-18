@@ -9,9 +9,9 @@ return {
       auto_trigger = true,
       keymap = {
         -- Only works on macOS
-        -- accept = '<c-enter>',
-        -- next = '<D-]>',
-        -- prev = '<D-[>',
+        accept = '<D-y>',
+        next = '<D-]>',
+        prev = '<D-[>',
       },
     },
     panel = {
