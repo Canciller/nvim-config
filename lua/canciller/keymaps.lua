@@ -51,3 +51,10 @@ map('n', '[q', function()
 end, {
   desc = 'Go to previous [Q]uickfix item',
 })
+
+-- Disable some lsp global keymaps
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grt')

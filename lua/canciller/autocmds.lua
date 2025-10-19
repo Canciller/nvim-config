@@ -61,12 +61,12 @@ autocmd('LspAttach', {
     map('gpd', require('goto-preview').goto_preview_definition, '[G]oto [P]review [D]efinition')
 
     -- Find references for the word under your cursor.
-    -- map('grr', function()
-    --   require('telescope.builtin').lsp_references({
-    --     show_line = false,
-    --     path_display = { 'truncate' },
-    --   })
-    -- end, '[G]oto [R]eferences')
+    map('gr', function()
+      require('telescope.builtin').lsp_references({
+        show_line = false,
+        path_display = { 'truncate' },
+      })
+    end, '[G]oto [R]eferences')
 
     map('gpr', require('goto-preview').goto_preview_references, '[G]oto [P]review [R]eferences')
 
@@ -95,7 +95,7 @@ autocmd('LspAttach', {
 
     -- Rename the variable under your cursor
     --  Most Language Servers support renaming across files, etc.
-    -- map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
     -- Execute a code action, usually your cursor needs to be on top of an error
     -- or a suggestion from your LSP for this to activate.

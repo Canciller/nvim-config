@@ -89,3 +89,4 @@ o.undofile = false -- Don't keep track of my undo's between sessions
 o.swapfile = false -- No swap files
 
 o.hlsearch = true
+o.signcolumn = 'yes'

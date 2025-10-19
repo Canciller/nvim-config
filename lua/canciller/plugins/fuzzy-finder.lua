@@ -48,11 +48,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
       -- You can put your default mappings / updates / etc. in here
       --  All the info you're looking for is in `:help telescope.setup()`
       --
-      -- defaults = {
-      --   mappings = {
-      --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-      --   },
-      -- },
+      defaults = {
+        mappings = {
+          i = {
+            ['<C-u>'] = false,
+          },
+        },
+        sorting_strategy = 'ascending',
+        layout_strategy = 'vertical',
+        layout_config = {
+          prompt_position = 'top',
+        },
+      },
       -- pickers = {}
       extensions = {
         ['ui-select'] = {
@@ -74,54 +81,38 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', function()
-      builtin.oldfiles(require('telescope.themes').get_dropdown({
+      builtin.oldfiles({
         only_cwd = true,
-        layout_config = {
-          width = 0.6,
-          height = 0.9,
-        },
         path_display = { 'truncate' },
-        previewer = false,
-      }))
+      })
     end, { desc = '[S]earch Recent Files ("." for repeat)' })
 
     vim.keymap.set('n', '<leader><leader>', function()
-      builtin.buffers(require('telescope.themes').get_dropdown({
-        layout_config = {
-          width = 0.6,
-          height = 0.9,
-        },
+      builtin.buffers({
+        only_cwd = true,
+        ignore_current_buffer = true,
+        sort_mru = true,
         path_display = { 'truncate' },
-        previewer = false,
-      }))
+      })
     end, { desc = '[,] Find existing buffers' })
 
     vim.keymap.set('n', '<leader>sf', function()
-      builtin.find_files(require('telescope.themes').get_dropdown({
+      builtin.find_files({
         hidden = true,
-        layout_config = {
-          width = 0.6,
-          height = 0.9,
-        },
         path_display = { 'truncate' },
-        previewer = false,
-      }))
+      })
     end, { desc = '[S]earch [F]iles' })
-
     vim.keymap.set('n', '<leader>snf', function()
-      builtin.find_files(require('telescope.themes').get_dropdown({
+      builtin.find_files({
         hidden = true,
         no_ignore = true,
-        layout_config = {
-          width = 0.6,
-          height = 0.9,
-        },
         path_display = { 'truncate' },
-        previewer = false,
-      }))
+      })
     end, { desc = '[S]earch [N]o ignore [F]iles' })
 
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>sg', function()
+      builtin.live_grep()
+    end, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sng', function()
       builtin.live_grep({
         additional_args = {
