@@ -22,12 +22,18 @@ return {
   },
   {
     'github/copilot.vim',
-    enabled = true,
+    enabled = false,
     cmd = 'Copilot',
     event = 'InsertEnter',
     keys = {
       { '<D-]>', '<Plug>(copilot-next)', mode = 'i', desc = 'Next Copilot suggestion' },
       { '<D-[>', '<Plug>(copilot-previous)', mode = 'i', desc = 'Previous Copilot suggestion' },
     },
+  },
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup({})
+    end,
   },
 }
