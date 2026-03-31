@@ -19,7 +19,7 @@ M.run = function()
     progress = pcall_result
   end
 
-  local cmd = "tsgo --noEmit --pretty false"
+  local cmd = "npx tsc --noEmit --pretty false"
 
   local handle = progress
     and progress.handle.create({

@@ -65,8 +65,11 @@ require('lazy').setup({
         { '<leader>w_', hidden = true },
         { '<leader>g', group = '[G]it' },
         { '<leader>g_', hidden = true },
+        { '<leader>gs', group = '[G]it [S]earch' },
+        { '<leader>gs_', hidden = true },
         { '<leader>h', group = 'Git: [H]unk' },
         { '<leader>h_', hidden = true },
+        { '<leader>y', group = '[Y]ank' },
       })
     end,
   },

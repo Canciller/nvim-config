@@ -58,3 +58,21 @@ vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'grt')
+
+-- Function to get the relative path of the current buffer and copy it to the clipboard
+local function copy_relative_path()
+  -- '%:.' expands to the current file path relative to the current working directory (cwd)
+  local relative_path = vim.fn.expand('%:.')
+
+  -- Set the clipboard register (+) to the relative path
+  vim.fn.setreg('+', relative_path)
+
+  -- Optional: Display a notification
+  vim.notify('Copied relative path: ' .. relative_path, vim.log.levels.INFO, { title = 'Neovim' })
+end
+
+map('n', '<leader>yr', function()
+  copy_relative_path()
+end, {
+  desc = '[Y]ank [R]elative Path',
+})
