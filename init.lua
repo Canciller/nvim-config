@@ -124,7 +124,9 @@ require('lazy').setup({
 
   {
     'tris203/precognition.nvim',
-    opts = {},
+    opts = {
+      startVisible = false,
+    }
   },
 
   -- {
