@@ -3,6 +3,7 @@ require('canciller.keymaps')
 require('canciller.autocmds')
 require('canciller.commands')
 
+-- TODO: Move lsp configs to separate file
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('vtsls')
 -- vim.lsp.enable('ts_ls')
@@ -10,6 +11,30 @@ vim.lsp.enable('vtsls')
 vim.lsp.enable('tailwindcss')
 vim.lsp.enable('eslint')
 vim.lsp.enable('biome')
+
+local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
+csslsCapabilities.textDocument.completion.completionItem.snippetSupport = true
+
+vim.lsp.config('cssls', {
+  capabilities = csslsCapabilities,
+})
+
+vim.lsp.enable('cssls')
+
+--Enable (broadcasting) snippet capability for completion
+local jsonlsCapabilities = vim.lsp.protocol.make_client_capabilities()
+jsonlsCapabilities.textDocument.completion.completionItem.snippetSupport = true
+
+vim.lsp.config('jsonls', {
+  capabilities = jsonlsCapabilities,
+})
+
+vim.lsp.enable('jsonls')
+
+vim.lsp.config('graphql', {
+  filetypes = { 'graphql', 'typescriptreact', 'javascriptreact', 'javascript', 'typescript' },
+})
+vim.lsp.enable('graphql')
 
 -- require('canciller.load_test_lsp')
 
