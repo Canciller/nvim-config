@@ -91,3 +91,6 @@ o.swapfile = false -- No swap files
 o.hlsearch = true
 o.signcolumn = 'yes'
 o.ignorecase = false
+
+o.foldlevel = 99
+o.foldlevelstart = 99

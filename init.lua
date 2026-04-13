@@ -149,10 +149,17 @@ require('lazy').setup({
 
   {
     'tris203/precognition.nvim',
+    enabled = false,
     opts = {
       startVisible = false,
-    }
+    },
   },
+
+  -- {
+  --   'gennaro-tedesco/nvim-jqx',
+  --   event = { 'BufReadPost' },
+  --   ft = { 'json', 'yaml' },
+  -- },
 
   -- {
   --   'knubie/vim-kitty-navigator',
