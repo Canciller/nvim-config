@@ -1,6 +1,21 @@
 return { -- Autoformat
   'stevearc/conform.nvim',
   config = function()
+    local typescriptFormatters = function()
+      local biomeRoot = vim.fs.root(0, 'biome.json')
+      if biomeRoot then
+        return { 'biome-check', 'biome-organize-imports' }
+      end
+
+      local eslintRoot = vim.fs.root(0, '.eslintrc.json')
+
+      if eslintRoot then
+        return { 'eslint_d' }
+      end
+
+      return {}
+    end
+
     require('conform').setup({
       notify_on_error = true,
       format_on_save = function(bufnr)
@@ -12,14 +27,12 @@ return { -- Autoformat
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        javascript = { 'biome-check', 'eslint_d', 'prettierd', stop_after_first = true },
-        javascriptreact = { 'biome-check', 'eslint_d', 'prettierd', stop_after_first = true },
-        typescript = { 'biome-check', 'eslint_d', 'prettierd', stop_after_first = true },
-        -- typescriptreact = { 'biome-check', 'eslint_d', 'prettierd', stop_after_first = true },
-        typescriptreact = { 'biome-check', 'biome-organize-imports' },
+        typescriptreact = typescriptFormatters,
+        typescript = typescriptFormatters,
+        javascriptreact = typescriptFormatters,
+        javascript = typescriptFormatters,
         html = { 'prettierd' },
         css = { 'prettierd' },
-        vue = { 'eslint_d', 'prettierd', stop_after_first = true },
       },
     })
   end,
