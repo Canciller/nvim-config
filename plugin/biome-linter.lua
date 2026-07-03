@@ -21,7 +21,7 @@ M.run = function()
     progress = pcall_result
   end
 
-  local cmd = "npx biome lint --reporter=github --max-diagnostics=" .. M.config.max_diagnostics
+  local cmd = "pnpm exec biome check --reporter=github --max-diagnostics=" .. M.config.max_diagnostics
 
   local handle = progress
     and progress.handle.create({
