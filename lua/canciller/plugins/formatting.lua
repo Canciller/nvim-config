@@ -12,13 +12,13 @@ return { -- Autoformat
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        javascript = { 'biome', 'eslint_d', 'prettierd', stop_after_first = false },
-        javascriptreact = { 'biome', 'eslint_d', 'prettierd', stop_after_first = false },
-        typescript = { 'biome', 'eslint_d', 'prettierd', stop_after_first = false },
-        typescriptreact = { 'biome', 'eslint_d', 'prettierd', stop_after_first = false },
+        javascript = { 'biome', 'eslint_d', 'prettierd', stop_after_first = true },
+        javascriptreact = { 'biome', 'eslint_d', 'prettierd', stop_after_first = true },
+        typescript = { 'biome', 'eslint_d', 'prettierd', stop_after_first = true },
+        typescriptreact = { 'biome', 'eslint_d', 'prettierd', stop_after_first = true },
         html = { 'prettierd' },
         css = { 'prettierd' },
-        vue = { 'eslint_d', 'prettierd', stop_after_first = false },
+        vue = { 'eslint_d', 'prettierd', stop_after_first = true },
       },
     })
   end,

@@ -166,8 +166,23 @@ require('lazy').setup({
   -- },
 
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim' },
+        { path = '~/Projects/nvim-ts-context-commentstring' },
+      },
+    },
+  },
   { import = 'canciller.plugins' },
 }, {
+  dev = {
+    path = '~/Projects',
+    fallback = true,
+  },
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons otherwise define a unicode icons table

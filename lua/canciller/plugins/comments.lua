@@ -8,6 +8,7 @@ return {
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
+    dev = true,
     opts = {
       enable_autocmd = false,
     },
