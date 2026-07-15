@@ -51,11 +51,13 @@ M.run = function()
       if line ~= '' then -- Ignore empty lines
         -- Match the filename, line number, column number, and the full message
         local pattern = '(.-)%((%d+),(%d+)%)%:%s*(.*)'
-        local filename, lnum, col, full_message = line:match(pattern)
+        local relativePath, lnum, col, full_message = line:match(pattern)
 
-        if filename and lnum and col and full_message then
+        if relativePath and lnum and col and full_message then
+          local absolutePath = vim.fs.joinpath(rootDirPath, relativePath)
+
           table.insert(qf_list, {
-            filename = filename,
+            filename = absolutePath,
             lnum = tonumber(lnum),
             col = tonumber(col),
             text = full_message,
