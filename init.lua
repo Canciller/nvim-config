@@ -10,7 +10,11 @@ vim.lsp.enable('vtsls')
 vim.lsp.enable('tailwindcss')
 vim.lsp.enable('eslint')
 vim.lsp.enable('biome')
-vim.uv.os_setenv('JAVA_HOME', vim.env.JAVA_21_HOME)
+
+if vim.env.JAVA_21_HOME then
+    vim.uv.os_setenv('JAVA_HOME', vim.env.JAVA_21_HOME)
+end
+
 vim.lsp.enable('jdtls')
 
 local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
