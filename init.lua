@@ -4,13 +4,14 @@ require('canciller.autocmds')
 require('canciller.commands')
 
 -- TODO: Move lsp configs to separate file
+--vim.lsp.log.set_level('trace') -- Uncomment to debug lsp requests/responses with `:LspLog`
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('vtsls')
--- vim.lsp.enable('ts_ls')
--- vim.lsp.enable('tsgo')
 vim.lsp.enable('tailwindcss')
 vim.lsp.enable('eslint')
 vim.lsp.enable('biome')
+vim.uv.os_setenv('JAVA_HOME', vim.env.JAVA_21_HOME)
+vim.lsp.enable('jdtls')
 
 local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
 csslsCapabilities.textDocument.completion.completionItem.snippetSupport = true

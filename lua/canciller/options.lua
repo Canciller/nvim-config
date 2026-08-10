@@ -38,19 +38,6 @@ o.showmode = false
 --  See `:help 'clipboard'`
 o.clipboard = 'unnamedplus'
 
-o.breakindent = true -- Enable break indent
-o.autoindent = true -- Continue indentation to new line
-o.smartindent = true -- Add extra indent when it makes sense
-o.smarttab = true -- <tab> at the start of a line behaves as expected
-o.expandtab = true -- <tab> inserts spaces
-o.shiftwidth = 2 -- >>, << shift line by 2 spaces
-o.tabstop = 2 -- <tab> appears as 2 spaces
-o.softtabstop = 2 -- <tab> behaves as 2 spaces when editing
-o.shiftround = true
-
--- Save undo history
-o.undofile = true
-
 -- Case-insensitive searching UNLESS \C or capital in search
 o.ignorecase = true
 o.smartcase = true
@@ -65,12 +52,6 @@ o.timeoutlen = 300
 -- Configure how new splits should be opened
 o.splitright = true
 o.splitbelow = true
-
--- Sets how neovim will display certain whitespace in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-o.list = true
-o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 o.inccommand = 'split' -- Preview substitutions live, as you type!
 
@@ -94,3 +75,23 @@ o.ignorecase = false
 
 o.foldlevel = 99
 o.foldlevelstart = 99
+
+-- Sets how neovim will display certain whitespace in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+o.list = true
+o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Default indentation settings.
+-- These apply unless overridden by a filetype plugin, .editorconfig,
+-- or a project-specific configuration.
+
+o.breakindent = true -- Wrapped lines keep the indentation of the original line.
+o.autoindent = true -- New lines inherit the indentation of the previous line.
+o.smartindent = true -- Increase indentation automatically for common language constructs.
+o.smarttab = true -- At the start of a line, <Tab> uses 'shiftwidth' instead of 'tabstop'.
+o.expandtab = true -- Insert spaces instead of literal tab characters.
+o.shiftround = true -- Round indentation to the nearest multiple of 'shiftwidth'.
+o.shiftwidth = 4 -- Indentation width (used by >>, <<, auto-indent, =, and LSP formatting).
+o.tabstop = 4 -- Display width of literal tab ('\t') characters.
+o.softtabstop = 4 -- Number of spaces <Tab>/<BS> inserts or removes while editing.
