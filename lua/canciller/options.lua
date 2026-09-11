@@ -92,6 +92,6 @@ o.smartindent = true -- Increase indentation automatically for common language c
 o.smarttab = true -- At the start of a line, <Tab> uses 'shiftwidth' instead of 'tabstop'.
 o.expandtab = true -- Insert spaces instead of literal tab characters.
 o.shiftround = true -- Round indentation to the nearest multiple of 'shiftwidth'.
-o.shiftwidth = 4 -- Indentation width (used by >>, <<, auto-indent, =, and LSP formatting).
-o.tabstop = 4 -- Display width of literal tab ('\t') characters.
-o.softtabstop = 4 -- Number of spaces <Tab>/<BS> inserts or removes while editing.
+o.shiftwidth = 2 -- Indentation width (used by >>, <<, auto-indent, =, and LSP formatting).
+o.tabstop = 2 -- Display width of literal tab ('\t') characters.
+o.softtabstop = 2 -- Number of spaces <Tab>/<BS> inserts or removes while editing.
