@@ -39,6 +39,35 @@ M.range_label = function(first, last, scol, ecol)
   return ('Line %d to %d'):format(first, last)
 end
 
+---Parse an entry header written by `format_entry`
+---@param line string
+---@return { path: string, line: integer, col?: integer }?
+M.parse_header = function(line)
+  local path, l, c = line:match('^## Note %d+ — `(.-)` · Line (%d+):?(%d*)')
+  if not path then
+    return nil
+  end
+  return { path = path, line = tonumber(l), col = tonumber(c) }
+end
+
+---Header of the entry containing `row` (1-based). Nil when `row` is outside
+---any entry, i.e. a `---` separator comes before a header.
+---@param lines string[]
+---@param row integer
+---@return { path: string, line: integer, col?: integer }?
+M.find_entry = function(lines, row)
+  for i = row, 1, -1 do
+    local header = M.parse_header(lines[i])
+    if header then
+      return header
+    end
+    if lines[i] == '---' then
+      return nil
+    end
+  end
+  return nil
+end
+
 ---Build the markdown for a single entry
 ---@param opts { number: integer, path: string, first: integer, last: integer, scol?: integer, ecol?: integer, note: string[], code: string[], lang: string }
 ---@return string

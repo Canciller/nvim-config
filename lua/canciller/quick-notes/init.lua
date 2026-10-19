@@ -4,12 +4,18 @@ local util = require('canciller.quick-notes.util')
 ---@field dir string Directory (relative to cwd) holding the note files, e.g. '.notes' or '.plans'
 ---@field keymap string Operator mapping; works with any motion or in visual mode
 ---@field quick_keymap string Same, but saves straight to the last file used in this project
+---@field goto_keymap string In a note file: jump to the source of the entry under the cursor
+---@field next_keymap string In a note file: next note
+---@field prev_keymap string In a note file: previous note
 ---@field width number Float width as a fraction of the editor
 ---@field height number Float height as a fraction of the editor
 local config = {
   dir = '.notes',
   keymap = '<leader>n',
   quick_keymap = '<leader>N',
+  goto_keymap = 'gf',
+  next_keymap = ']n',
+  prev_keymap = '[n',
   width = 0.6,
   height = 0.4,
 }
@@ -324,10 +330,75 @@ local function map_operator(key, quick, line_suffix)
   end, { desc = what .. ' on selection' })
 end
 
+---Open the source file of the entry under the cursor, at the start of its range
+M.goto_source = function()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local entry = util.find_entry(lines, vim.api.nvim_win_get_cursor(0)[1])
+  if not entry then
+    vim.notify('Quick note: cursor is not inside a note entry', vim.log.levels.WARN)
+    return
+  end
+
+  local file = vim.fs.joinpath(vim.uv.cwd(), entry.path)
+  if vim.uv.fs_stat(file) == nil then
+    vim.notify(('Quick note: %s does not exist'):format(entry.path), vim.log.levels.WARN)
+    return
+  end
+
+  vim.cmd.edit(vim.fn.fnameescape(file))
+  local line = math.min(entry.line, vim.api.nvim_buf_line_count(0))
+  vim.api.nvim_win_set_cursor(0, { line, math.max((entry.col or 1) - 1, 0) })
+  vim.cmd('normal! zz')
+end
+
+---@param backward boolean
+local function jump_note(backward)
+  local flags = backward and 'bW' or 'W'
+  for _ = 1, vim.v.count1 do
+    if vim.fn.search('^## Note \\d\\+ ', flags) == 0 then
+      break
+    end
+  end
+  vim.cmd('normal! zz')
+end
+
+M.next_note = function()
+  jump_note(false)
+end
+
+M.prev_note = function()
+  jump_note(true)
+end
+
+---@param buf integer
+local function is_note_file(buf)
+  local name = vim.api.nvim_buf_get_name(buf)
+  local dir = vim.fs.joinpath(vim.uv.cwd(), M.config.dir) .. '/'
+  return name:sub(1, #dir) == dir and name:match('%.md$') ~= nil
+end
+
 M.setup = function(args)
   M.config = vim.tbl_deep_extend('force', M.config, args or {})
   map_operator(M.config.keymap, false, 'n')
   map_operator(M.config.quick_keymap, true, 'N')
+
+  vim.api.nvim_create_autocmd('BufEnter', {
+    group = vim.api.nvim_create_augroup('quick-notes-navigation', { clear = true }),
+    pattern = '*.md',
+    callback = function(ev)
+      if vim.b[ev.buf].quick_notes_mapped or not is_note_file(ev.buf) then
+        return
+      end
+      vim.b[ev.buf].quick_notes_mapped = true
+
+      local function map(key, fn, desc)
+        vim.keymap.set('n', key, fn, { buffer = ev.buf, desc = 'Quick note: ' .. desc })
+      end
+      map(M.config.goto_keymap, M.goto_source, 'go to source')
+      map(M.config.next_keymap, M.next_note, 'next note')
+      map(M.config.prev_keymap, M.prev_note, 'previous note')
+    end,
+  })
 end
 
 return M

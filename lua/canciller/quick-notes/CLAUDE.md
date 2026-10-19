@@ -13,12 +13,20 @@ Custom Neovim plugin (Lua, lives in this config). Select a code range, write a n
 | `dir` | `.notes` | notes directory, relative to cwd (use `.plans` etc.) |
 | `keymap` | `<leader>n` | pick the destination file on save |
 | `quick_keymap` | `<leader>N` | save straight to the last file used in this project |
+| `goto_keymap` | `gf` | in a note file: jump to the source of the entry under the cursor |
+| `next_keymap` / `prev_keymap` | `]n` / `[n` | in a note file: next / previous `## Note` header |
 | `width` / `height` | `0.6` / `0.4` | float size as a fraction of the editor |
 
 ## Keymaps
 Both sets are operators (`:h g@`), built by `map_operator` in `init.lua`:
 - `<key>{motion}`, `<key>n` / `<key>N` (current line), and visual `<key>`.
 - `<leader>N` with no remembered file (or the file was deleted) shows a warning and does not open the float.
+
+## Navigation (note files only)
+A `BufEnter` autocmd maps `goto_keymap`, `next_keymap`, `prev_keymap` buffer-locally in `*.md` files under `cwd/<dir>/`.
+- `gf` (`goto_source`): finds the entry header above the cursor (`util.find_entry`, stops at a `---` separator), opens the file at the range's start line/column. Cursor can be anywhere in the entry.
+- `]n` / `[n`: search for `^## Note \d\+ `, count-aware.
+- `util.parse_header` parses the header, so changing the header format in `format_entry` means updating it too.
 
 ## Behaviour
 - Float is a `nui.layout`: read-only snippet pane on top (source filetype highlighting), markdown notes pane below (`buftype=acwrite`, so `:w`/`:wq` fire `BufWriteCmd`).
