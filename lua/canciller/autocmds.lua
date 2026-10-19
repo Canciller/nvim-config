@@ -11,7 +11,7 @@ autocmd('TextYankPost', {
 
 autocmd('BufEnter', {
   desc = "Don't auto comment new lines",
-  pattern = '',
+  -- pattern = '',
   command = 'set fo-=c fo-=r fo-=o',
 })
 
@@ -137,6 +137,10 @@ autocmd('LspAttach', {
         wrap = false,
       })
     end, 'Go to next [E]rror message')
+
+    map('<leader>qd', function()
+      vim.diagnostic.setqflist()
+    end, '[Q]uickfix [D]iagnostics')
 
     -- The following two autocommands are used to highlight references of the
     -- word under your cursor when your cursor rests there for a little while.

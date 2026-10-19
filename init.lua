@@ -100,6 +100,7 @@ require('lazy').setup({
         { '<leader>h', group = 'Git: [H]unk' },
         { '<leader>h_', hidden = true },
         { '<leader>y', group = '[Y]ank' },
+        { '<leader>q', group = '[Q]uickfix' },
       })
     end,
   },
