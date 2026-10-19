@@ -1,9 +1,12 @@
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    -- branch = 'main',
+    branch = 'main',
     lazy = false,
     build = ':TSUpdate',
+    opts = {
+      install_dir = vim.fn.stdpath('data') .. '/site',
+    },
     --   -- There are additional nvim-treesitter modules that you can use to interact
     --   -- with nvim-treesitter. You should go explore a few and see what interests you:
     --   --

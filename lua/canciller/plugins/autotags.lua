@@ -1,6 +1,8 @@
 return {
   'windwp/nvim-ts-autotag',
   opts = {
-    enable_rename = false,
+    opts = {
+      enable_rename = false,
+    },
   },
 }
