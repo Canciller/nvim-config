@@ -70,10 +70,80 @@ M.append = function(path, text)
   return true
 end
 
+---Markdown files in `dir`, sorted by name. Empty if the dir doesn't exist.
+---@param dir string
+---@return string[] names
+M.list_notes = function(dir)
+  local names = {}
+  for name, type in vim.fs.dir(dir) do
+    if type == 'file' and name:match('%.md$') then
+      table.insert(names, name)
+    end
+  end
+  table.sort(names)
+  return names
+end
+
+---Normalise a user-typed file name. Returns nil if it isn't a plain name.
+---@param name string
+---@return string?
+M.note_filename = function(name)
+  name = vim.trim(name)
+  if name == '' or name:find('[/\\]') or name:sub(1, 1) == '.' then
+    return nil
+  end
+  return name:match('%.md$') and name or (name .. '.md')
+end
+
 ---@param lines string[]
 ---@return boolean
 M.is_blank = function(lines)
   return vim.trim(table.concat(lines, '\n')) == ''
+end
+
+local function state_file()
+  return vim.fs.joinpath(vim.fn.stdpath('state'), 'quick-notes', 'state.json')
+end
+
+---@return table<string, string>
+local function read_state()
+  local f = io.open(state_file(), 'r')
+  if not f then
+    return {}
+  end
+  local text = f:read('*a')
+  f:close()
+
+  local ok, decoded = pcall(vim.json.decode, text)
+  return (ok and type(decoded) == 'table') and decoded or {}
+end
+
+---Last note file (relative to cwd) used in this project
+---@param cwd string
+---@return string?
+M.read_last = function(cwd)
+  local last = read_state()[cwd]
+  return type(last) == 'string' and last or nil
+end
+
+---@param cwd string
+---@param rel_path? string nil clears the entry
+M.write_last = function(cwd, rel_path)
+  local state = read_state()
+  state[cwd] = rel_path
+  vim.fn.mkdir(vim.fs.dirname(state_file()), 'p')
+  M.overwrite(state_file(), vim.json.encode(state))
+end
+
+---Replace the whole content of a file (state only; notes are append-only)
+---@param path string
+---@param text string
+M.overwrite = function(path, text)
+  local f = io.open(path, 'w')
+  if f then
+    f:write(text)
+    f:close()
+  end
 end
 
 return M
